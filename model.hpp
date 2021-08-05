@@ -143,12 +143,13 @@ bool Model::_build(){
             LOG(INFO) << "Using fp16";
             config->setFlag(BuilderFlag::kFP16);
         }
-        if(builder->getNbDLACores() > 0){
-            LOG(INFO) << "Enable DLA";
-            config->setFlag(BuilderFlag::kGPU_FALLBACK);
-            config->setDefaultDeviceType(DeviceType::kDLA);
-            config->setDLACore(0);
-        }
+
+        // if(builder->getNbDLACores() > 0){
+        //     LOG(INFO) << "Enable DLA";
+        //     config->setFlag(BuilderFlag::kGPU_FALLBACK);
+        //     config->setDefaultDeviceType(DeviceType::kDLA);
+        //     config->setDLACore(0);
+        // }
         
         ICudaEngine* engine = builder->buildEngineWithConfig(*network, *config);
         if (!engine) {

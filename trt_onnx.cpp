@@ -4,12 +4,10 @@
 using namespace std;
 using MODEL::Model;
 
-const string IMG_DIR = "/home/luojiapeng/Projects/evonet-rt-cpp/data/wider_samples_1000";
-
-
 int main(int argc, char* argv[]){
-    if (argc != 2){
+    if (argc != 3){
         LOG(ERROR) << "wrong arugments num";
+	return -1;
     }
     TIMER::Timer timer_infer("infer");
     TIMER::Timer timer_post("post");
@@ -20,9 +18,10 @@ int main(int argc, char* argv[]){
         LOG(ERROR) << "init fails";
         return -1;
     }
+    string img_dir(argv[2]);
 
     vector<cv::String> img_files;
-    cv::glob(IMG_DIR.c_str(), img_files);
+    cv::glob(img_dir.c_str(), img_files);
     size_t inp_vol = model.input_height() * model.input_width() * 3;
     const int BS = model.batch_size();
     shared_ptr<float[]> inp_buf(new float[inp_vol * BS]);
